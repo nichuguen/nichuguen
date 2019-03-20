@@ -1,0 +1,9 @@
+{
+    "address": "https://accounts.spotify.com/authorize",
+    "clientId": "your_api_key",
+    "responseType": "token",
+    "state": "TODO",
+    "scope": "playlist-modify-private",
+    "redirectUri": "http://localhost:5000",
+    "showDialog": false
+}

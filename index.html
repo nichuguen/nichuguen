@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spotify Playlist Creator</title>
+        <link rel="stylesheet" type="text/css" href="./static/main.css">
+    </head>
+    <body>
+        <h1>
+            Spotify Playlist Creator
+        </h1>
+
+
+        <div id="app">
+            {{ message }}
+
+            <p id="message">
+            Please authorize the app by clicking on the button.
+            <button v-on:click="authorize">
+                Authorize
+            </button>
+            </p>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="./static/main.js"></script>
+        <script src="./static/index.js"></script>
+        <!-- production version, optimized for size and speed -->
+    </body>
+</html>
