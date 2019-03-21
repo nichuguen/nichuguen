@@ -3,50 +3,68 @@
     <head>
         <meta charset="utf-8" />
         <title>Spotify Playlist Creator</title>
-        <link rel="stylesheet" type="text/css" href="./static/css/main.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+            <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+            <!--<![endif]-->
     </head>
     <body>
-        <h1>Spotify Playlist Creator</h1>
-
-        <div id="app">
-            <div v-if="errorState">
-                An error occured while authenticating or you declined the authorization.
-            </div>
-            <div v-if="!authState">
-                Please authorize the app by clicking on the button.
-                <button v-on:click="authorize">Authorize</button>
-            </div>
-            <div v-else>
-                <h2>
-                    Welcome {{user}}!
-                </h2>
-                <div>
-                    <input type="text" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
-                    <button v-on:click="createPlaylist">Create Playlist</button>
+        <div class="pure-g">
+            <div class="pure-u-1-24 pure-u-md-1-4"></div>
+            <div id="app" class="pure-u-22-24 pure-u-md-1-2">
+                <h1>Spotify Playlist Creator</h1>
+                <div v-if="errorState">
+                    An error occured while authenticating or you declined the authorization.
                 </div>
-                <!-- add one artist -->
-                <div>
-                    <input type="text" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
-                    <button v-on:click="addArtist">Add artist</button>
-                    <button v-on:click="removeArtists">Remove all artists</button>
-
+                <div v-if="!authState">
+                    <h2> Welcome! </h2>
+                    <h3> What is this website?</h3>
+                    <p>Spotify Playlist Creator is a small tool that creates playlist from the top songs
+                    of the artists you want to listen to!</p>
+                    <h3> How does it work? </h3>
+                    <p> You select a few artists, choose a name for your playlist, and hit a button... 
+                    A private playlist with the top tracks of the selecte artists is added to your account, it's
+                    that simple.</p>
+                    <h3> Why do I need to authorize this application? </h3>
+                    <p> In order to create a new playlist and add some songs to it, this application
+                    needs to have your permission to access your private playlists.</p>
+                    <button v-on:click="authorize" class="pure-button">Authorize</button>
                 </div>
-                <div>
-                    <table>
-                    <div is="artist" 
-                        v-for="(a, index) in artists" 
-                        v-bind:key="index" 
-                        v-bind:artistname="a" 
-                        v-on:remove="removeArtist(index)">
+                <div v-else>
+                    <h2>
+                        Welcome {{user}}!
+                    </h2>
+                    <div>
+                        <input type="text" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
+                        <button v-on:click="createPlaylist" class="pure-button">Create Playlist</button>
                     </div>
-                    </table>
+                    <!-- add one artist -->
+                    <div>
+                        <input type="text" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
+                        <button v-on:click="addArtist" class="pure-button">Add artist</button>
+                        <button v-on:click="removeArtists" class="pure-button">Remove all artists</button>
+
+                    </div>
+                    <div>
+                        <table>
+                            <div is="artist" 
+                                 v-for="(a, index) in artists" 
+                                 v-bind:key="index" 
+                                 v-bind:artistname="a" 
+                                 v-on:remove="removeArtist(index)">
+                            </div>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="pure-u-1-24 pure-u-md-1-4"></div>
 
+        </div>
         <!-- production version, optimized for size and speed -->
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
         <script src="./static/js/tools.js"></script>
         <script src="./static/js/spotify_api.js"></script>
         <script src="./static/js/artist.js"></script>
