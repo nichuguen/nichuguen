@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Spotify Playlist Creator</title>
-        <link rel="stylesheet" type="text/css" href="./static/main.css">
+        <link rel="stylesheet" type="text/css" href="./static/css/main.css">
     </head>
     <body>
         <h1>Spotify Playlist Creator</h1>
@@ -17,17 +17,39 @@
                 <button v-on:click="authorize">Authorize</button>
             </div>
             <div v-else>
-                <span>{{ authParams['access_token'] }}</span>
-                <span>{{ authParams['token_type'] }}</span>
-                <span>{{ authParams['state'] }}</span>
-                <span>{{ authParams['expires_in'] }}</span>
-                fallback
+                <h2>
+                    Welcome {{user}}!
+                </h2>
+                <div>
+                    <input type="text" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
+                    <button v-on:click="createPlaylist">Create Playlist</button>
+                </div>
+                <!-- add one artist -->
+                <div>
+                    <input type="text" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
+                    <button v-on:click="addArtist">Add artist</button>
+                    <button v-on:click="removeArtists">Remove all artists</button>
+
+                </div>
+                <div>
+                    <table>
+                    <div is="artist" 
+                        v-for="(a, index) in artists" 
+                        v-bind:key="index" 
+                        v-bind:artistname="a" 
+                        v-on:remove="removeArtist(index)">
+                    </div>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- production version, optimized for size and speed -->
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-        <script src="./static/index.js"></script>
+        <script src="./static/js/tools.js"></script>
+        <script src="./static/js/spotify_api.js"></script>
+        <script src="./static/js/artist.js"></script>
+        <script src="./static/js/index.js"></script>
     </body>
 </html>
