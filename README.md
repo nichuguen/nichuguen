@@ -13,3 +13,4 @@
   `python3 -m http.server 5000 --bind 127.0.0.1`
 - Python 2
   `python2 -m SimpleHTTPServer 5000`
+- The website is now live on [http://localhost:5000](http://localhost:5000)
