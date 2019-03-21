@@ -21,7 +21,7 @@ async function createSpotifyPlaylist(artists, clientToken, playlistName, usernam
 async function fillPlaylist(playlistId, songsIDs, clientToken){
     let s = [];
     let i;
-    const MAX_SLICE = 5;
+    const MAX_SLICE = 100;
     for(i = 0; i < songsIDs.length; i += MAX_SLICE) {
         let m = i + MAX_SLICE > songsIDs.length ? songsIDs.length:i+MAX_SLICE;
         console.log(i, m);
