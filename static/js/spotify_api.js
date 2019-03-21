@@ -95,35 +95,3 @@ function getArtistId(artist, clientToken) {
             }
         });
 }
-
-function makeRequest(address, params, clientToken){
-    let requestParams = {
-        headers: {
-            "Authorization": "Bearer " + clientToken,
-        }
-    }
-
-    let s = "?";
-
-    for(var key in params) {
-        s += `${key}=${encodeURIComponent(params[key])}&`
-    }
-    let response = fetch(address + s, requestParams)
-        .then(r => { return r.json() });
-    return response;
-}
-
-function makePostRequest(address, params, clientToken) {
-    let requestParams = {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + clientToken,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-    }
-
-    let response = fetch(address, requestParams)
-        .then(r => { return r.json() });
-    return response;
-}

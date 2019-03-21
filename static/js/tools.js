@@ -1,5 +1,5 @@
 // https://www.w3schools.com/js/js_cookies.asp
-
+// sets a cook with a name, value and expiring number of days
 function setCookie(cname, cvalue, exdays) {
     if (typeof exdays !== 'undefined'){
         var d = new Date();
@@ -11,6 +11,7 @@ function setCookie(cname, cvalue, exdays) {
     }
 }
 
+// gets a cookie from a name
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -26,12 +27,13 @@ function getCookie(cname) {
     return "";
 }
 
-// dec2hex :: Integer -> String
 // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#8084248
+// dec2hex :: Integer -> String
 function dec2hex (dec) {
     return ('0' + dec.toString(16)).substr(-2)
 }
 
+// https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#8084248
 // generateId :: Integer -> String
 function generateId (len) {
     var arr = new Uint8Array((len || 40) / 2)
@@ -53,4 +55,39 @@ function clearCache(){
 
 function removeFromCache(name) {
     sessionStorage.removeItem(name);
+}
+
+// makes a get request to the address
+// passes the clientToken in the headers
+// the params are put at the end of the address
+function makeRequest(address, params, clientToken){
+    let requestParams = {
+        headers: {
+            "Authorization": "Bearer " + clientToken,
+        }
+    }
+    let s = "?";
+    for(var key in params) {
+        s += `${key}=${encodeURIComponent(params[key])}&`
+    }
+    let response = fetch(address + s, requestParams)
+        .then(r => { return r.json() });
+    return response;
+}
+
+// makes a post request to the address
+// passes the clientToken in the headers
+// the params are put as json in the body of the request
+function makePostRequest(address, params, clientToken) {
+    let requestParams = {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + clientToken,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+    }
+    let response = fetch(address, requestParams)
+        .then(r => { return r.json() });
+    return response;
 }
