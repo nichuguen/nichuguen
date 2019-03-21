@@ -2,9 +2,11 @@
 
 const SPOTIFY_URL = "https://api.spotify.com/v1"
 
+// returns the use's complete profile
+// the accessToken is granted to a unique user so no other params
+// are needed
 async function getUserProfile(accessToken) {
-    return makeRequest(SPOTIFY_URL + "/me", {}, accessToken)
-        .then(u => u.id);
+    return makeRequest(SPOTIFY_URL + "/me", {}, accessToken);
 }
 
 async function createSpotifyPlaylist(artists, accessToken, playlistName, username) {

@@ -87,7 +87,8 @@ var app = new Vue({
             this.authState = true;
             // TODO: use cookies instead of anchor
             // window.location.hash = '';
-            this.user = await getUserProfile(this.authParams['access_token']);
+            let userProfile = await getUserProfile(this.authParams['access_token']);
+            this.user = userProfile.id;
         }
         else{
             this.resetAuthState();
