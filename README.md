@@ -1,4 +1,7 @@
+# Hosted
+[spotify.courgettes.club](spotify.courgettes.club)
 
+# Run locally
 ## Demo Config
 - Go to [https://developer.spotify.com/dashboard/applications](https://developer.spotify.com/dashboard/applications)
 - Create a new Client ID
