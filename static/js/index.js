@@ -1,5 +1,7 @@
 "use strict";
 
+const CONFIG_FILE = './static/config/config.json'
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -13,7 +15,7 @@ var app = new Vue({
     },
     methods: {
         authorize: function() {
-            fetch('./static/config.json')
+            fetch(CONFIG_FILE)
                 .then(response => {return response.json()})
                 .then(data => {
                     let state = generateId(10);

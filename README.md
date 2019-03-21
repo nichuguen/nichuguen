@@ -7,9 +7,9 @@
 - Create a new Client ID
 - Add `http://localhost:5000` as a redirect URI.
 - Copy your Client ID
-- `cp static/example-config.json static/config.json`
+- `cp static/config/example-config.json static/config/config.json`
 - Paste your Client ID in the config file:
-  - `sed -i s/your_api_key/$YOUR_CLIENT_ID/ static/config.json`
+  - `sed -i s/your_api_key/$YOUR_CLIENT_ID/ static/config/config.json`
 
 ## Serve the site
 - Python 3
