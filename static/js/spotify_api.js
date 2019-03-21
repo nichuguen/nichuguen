@@ -2,7 +2,6 @@
 
 const SPOTIFY_URL = "https://api.spotify.com/v1"
 
-
 async function getUserProfile(accessToken) {
     return makeRequest(SPOTIFY_URL + "/me", {}, accessToken)
         .then(u => u.id);
@@ -44,7 +43,7 @@ async function createPlaylist(name, username, accessToken) {
         public: false,
         collaborative: false,
     }, accessToken)
-    .then(j => j.id);
+        .then(j => j.id);
 }
 
 async function getFeaturedSongsOfArtists(artistURIs, accessToken) {
@@ -66,9 +65,9 @@ function getFeaturedSongsOfArtist(artistURI, accessToken) {
     return makeRequest(SPOTIFY_URL+"/artists/"+artistURI + "/top-tracks",{
         country: "from_token",
     }, accessToken)
-    .then(j => {
-        return j.tracks;
-    });
+        .then(j => {
+            return j.tracks;
+        });
 }
 
 async function getAllArtists(artists, accessToken) {
