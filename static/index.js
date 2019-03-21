@@ -1,34 +1,10 @@
 
-window.addEventListener('load', e => {
-    let hashFragment = window.location.hash;
-
-    let urlParams = new URLSearchParams(hashFragment.substring(1));
-    console.log(urlParams.has('access_token'));
-
-    if (urlParams.has('error'))
-    {
-        document.getElementById('message').innerHTML="error while authenticating, please retry";
-    } else if (urlParams.has('access_token'))
-    {
-        let accessToken = urlParams.get('access_token');
-        let tokenType = urlParams.get('token_type');
-        let expiresIn = urlParams.get('expires_in');
-        let state = urlParams.get('state');
-
-        let html = `
-                accessToken ${accessToken}
-                tokenType ${tokenType}
-                expiresIn ${expiresIn}
-                state ${state}
-            `;
-        document.getElementById('message').innerHTML = html;
-    }
-}, false);
-
 var app = new Vue({
     el: '#app',
     data: {
-        message: 'Hello Vue!'
+        errorState: false,
+        authState: false,
+        authParams: {}
     },
     methods: {
         authorize: function() {
@@ -39,9 +15,43 @@ var app = new Vue({
                     window.location.replace(fullAddress);
                 })
                 .catch(console.log);
+        },
+        resetAuthState: function() {
+            delete this.authParams['access_token'];
+            delete this.authParams['token_type'];
+            delete this.authParams['expires_in'];
+            delete this.authParams['state'];
+            this.authState = false;
         }
     },
-    created() {
-        console.log("created");
+    // called when the app is completely created
+    // checks if the state is empty, error or auth
+    mounted() {
+        // errors happen in the GET parameters of the URL
+        let getParams = new URLSearchParams(window.location.search);
+        if(getParams.has('error')){
+            this.errorState = true;
+            this.authState = false;
+            return;
+        }
+        this.errorState = false;
+
+        // non error state in the anchor of the URL
+        let hashFragment = window.location.hash;
+        let urlParams = new URLSearchParams(hashFragment.substring(1));
+
+        if (urlParams.has('access_token'))
+        {
+            this.authParams['access_token'] = urlParams.get('access_token');
+            this.authParams['token_type'] = urlParams.get('token_type');
+            this.authParams['expires_in'] = urlParams.get('expires_in');
+            this.authParams['state'] = urlParams.get('state');
+            this.authState = true;
+            // TODO: use cookies instead of anchor
+            // window.location.hash = '';
+        }
+        else{
+            this.resetAuthState();
+        }
     }
 })
