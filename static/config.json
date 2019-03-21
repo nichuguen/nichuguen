@@ -3,6 +3,6 @@
     "clientId": "e0d1be4935894f0f9bd4bcaba132eabc",
     "responseType": "token",
     "scope": "playlist-modify-private",
-    "redirectUri": "http://spotify.courgettes.club",
+    "redirectUri": "https://spotify.courgettes.club",
     "showDialog": false
 }
