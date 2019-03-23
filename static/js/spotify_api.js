@@ -31,7 +31,6 @@ async function fillPlaylist(playlistId, songsURIs, accessToken){
     const MAX_SLICE = 100;
     for(i = 0; i < songsURIs.length; i += MAX_SLICE) {
         let m = i + MAX_SLICE > songsURIs.length ? songsURIs.length:i+MAX_SLICE;
-        console.log(i, m);
         let sliced = songsURIs.slice(i, m);
         s.push(addToPlaylist(playlistId, sliced, accessToken));
     }
@@ -99,17 +98,14 @@ async function searchAllArtists(artists, accessToken) {
 
 // search for the artist using the search endpoint
 // either null or one object is returned
-function searchForArtist(artist, accessToken) {
+function searchForArtist(artist, accessToken, limit) {
+    if(typeof limit === 'undefined') {
+        limit = 1;
+    }
     return makeRequest(SPOTIFY_URL+"/search", {
         q: artist,
         type: "artist",
-        limit: 1,
+        limit: limit,
     }, accessToken)
-        .then(j => {
-            if (j.artists.items.length > 0) {
-                return j.artists.items[0];
-            } else {
-                return null;
-            }
-        });
+        .then(j => j.artists.items);
 }

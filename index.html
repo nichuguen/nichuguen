@@ -51,14 +51,16 @@
 
                     </div>
                     <div>
-                        <table>
-                            <div is="artist" 
-                                 v-for="(a, index) in artists" 
-                                 v-bind:key="index" 
-                                 v-bind:artistname="a" 
-                                 v-on:remove="removeArtist(index)">
-                            </div>
-                        </table>
+
+                            <artist-search
+                                v-for="(as, is) in artistsSearch"
+                                v-bind:key="is"
+                                v-bind:artists="as.artists"
+                                v-on:remove="removeArtist(is)"
+                                v-on:next="next(is)"
+                                v-on:previous="previous(is)"
+                                >
+                            </artist-search>
                     </div>
                 </div>
             </div>
@@ -69,7 +71,7 @@
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="./static/js/tools.js"></script>
         <script src="./static/js/spotify_api.js"></script>
-        <script src="./static/js/artist.js"></script>
+        <script src="./static/js/artist-search.js"></script>
         <script src="./static/js/index.js"></script>
     </body>
 </html>
