@@ -8,10 +8,10 @@ var app = new Vue({
         errorState: false,
         authState: false,
         authParams: {},
-        artists: [],
         currentArtist: "",
         playlistName: "",
         user: "",
+        artistsSearch: [],
     },
     methods: {
         authorize: function() {
@@ -37,22 +37,59 @@ var app = new Vue({
             if(!this.isArtistValid(this.currentArtist)){
                 return;
             }
-            this.artists.push(this.currentArtist.toLowerCase());
-            this.currentArtist = "";
 
-            this.artists = [...new Set(this.artists)].sort();
+            searchForArtist(this.currentArtist, this.authParams['access_token'], 10)
+                .then(listArtists => {
+                    if(listArtists.length > 0) {
+                        listArtists = listArtists.map(a => {
+                            let imageUrl = "./static/imgs/icon.png";
+                            if(a.images.length > 0) {
+                                imageUrl = a.images[0].url;
+                            }
+                            return {
+                                name: a.name,
+                                id: a.id,
+                                imageUrl: imageUrl,
+                                uri: a.uri,
+                            };
+                        });
+                        this.artistsSearch.push({
+                            artists: listArtists,
+                            selectedId: 0,
+                        });
+                    }
+                });
+            this.currentArtist = "";
         },
         removeArtists: function() {
-            this.artists = [];
+            this.artistsSearch = [];
         },
         removeArtist: function(index) {
-            this.artists.splice(index,1);
+            this.artistsSearch.splice(index, 1);
         },
         isArtistValid: function(artist) {
             return artist != '';
         },
-        createPlaylist: function() {
-            createSpotifyPlaylist(this.artists, this.authParams['access_token'], this.playlistName, this.user);
+        next: function(index) {
+            this.changeSelectedId(index, 1);
+        },
+        previous: function (index) {
+            this.changeSelectedId(index, -1);
+        },
+        changeSelectedId: function(index, increment) {
+            let s = this.artistsSearch[index].selectedId + increment + this.artistsSearch[index].artists.length;
+            s %= this.artistsSearch[index].artists.length;
+            this.artistsSearch[index].selectedId = s;
+        },
+        createPlaylist: async function() {
+            let accessToken = this.authParams['access_token'];
+            let artistsIds = this.artistsSearch.map( as => as.artists[as.selectedId].id);
+            console.log(artistsIds);
+            let songsURIs = getFeaturedSongsOfArtists(artistsIds, accessToken);
+            let playlistId = await createPlaylist(this.playlistName, this.user, accessToken);
+
+            fillPlaylist(playlistId, await songsURIs, accessToken);
+            //createSpotifyPlaylist(this.artists, this.authParams['access_token'], this.playlistName, this.user);
         }
     },
     // called when the app is completely created
