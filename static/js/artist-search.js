@@ -16,8 +16,14 @@ Vue.component('artist-search', {
     `,
     props: ['artists'],
     data: () => ({
-        selectedId: 0
+        selectedId: 0,
+        selectedImg: "./static/imgs/icon.png",
     }),
+    // hacking around vue
+    // calling this will update the path for the img
+    mounted: function(){
+        this.changeSelectedId(0);
+    },
     methods: {
         next: function(){
             this.changeSelectedId(1);
@@ -30,6 +36,8 @@ Vue.component('artist-search', {
         changeSelectedId: function(increment) {
             this.selectedId += increment + this.artists.length;
             this.selectedId %= this.artists.length;
+            this.selectedImg = this.artists[this.selectedId].imageUrl;
+            console.log(this.artists[this.selectedId].name);
         },
 
     }
