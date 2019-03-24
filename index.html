@@ -41,18 +41,20 @@
                     </h2>
                     <form class="pure-form pure-g">
                         <div class="pure-u-1">
-                        <input type="text" class="pure-input-1" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
+                            <input type="text" class="pure-input-1" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
                         </div>
                         <div class="pure-u-1">
-                        <input type="text" class="pure-input-1" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
+                            <input type="text" class="pure-input-1" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
                         </div>
-                        <div class="pure-u-1">
-                        <button class="pure-u-1 pure-u-sm-8-24 pure-button" v-on:click="addArtist" >Add Artist</button>
-                        <button class="pure-u-1 pure-u-sm-8-24 pure-button" v-on:click="createPlaylist">Create Playlist</button>
-                        <button class="pure-u-1 pure-u-sm-7-24 pure-button" v-on:click="removeArtists" >Clear Artists</button>
+                        <div class="pure-u-1 pure-button-group">
+                            <div class="pure-u-1 pure-u-sm-1-24"></div>
+                            <button class="pure-u-1 pure-u-sm-7-24 pure-button" v-on:click="addArtist" >Add Artist</button>
+                            <button class="pure-u-1 pure-u-sm-8-24 pure-button" v-on:click="createPlaylist">Create Playlist</button>
+                            <button class="pure-u-1 pure-u-sm-7-24 pure-button" v-on:click="removeArtists" >Clear Artists</button>
+                        </div>
                     </form>
 
-                    
+
                     <div class="artists">
                         <artist-search
                             v-for="(as, is) in artistsSearch"
@@ -65,15 +67,15 @@
                         </artist-search>
                     </div>
                 </div>
+
             </div>
             <div class="pure-u-1-24 pure-u-md-3-24 pure-u-lg-1-4 pure-u-xl-1-3"></div>
 
-        </div>
-        <!-- production version, optimized for size and speed -->
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <script src="./static/js/tools.js"></script>
-        <script src="./static/js/spotify_api.js"></script>
-        <script src="./static/js/artist-search.js"></script>
-        <script src="./static/js/index.js"></script>
+            <!-- production version, optimized for size and speed -->
+            <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+            <script src="./static/js/tools.js"></script>
+            <script src="./static/js/spotify_api.js"></script>
+            <script src="./static/js/artist-search.js"></script>
+            <script src="./static/js/index.js"></script>
     </body>
 </html>
