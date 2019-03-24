@@ -2,16 +2,24 @@
 
 Vue.component('artist-search', {
     template: `
-    <div>
-        Name: {{artists[selectedId].name}}
-        <br/>
-        Uri: {{artists[selectedId].uri}}
-        <br/>
-        Image: {{artists[selectedId].imageUrl}}
-        <br/>
-        <button v-on:click="$emit(\'remove\')" class="pure-button">X</button>
-        <button v-on:click="previous" class="pure-button">&lt;</button>
-        <button v-on:click="next" class="pure-button">&gt;</button>
+    <div class="outer-artist">
+        <div class="inner-artist">
+            <div class="image-artist">
+                <img v-bind:src="selectedImg" height="80" width="80"/>
+            </div>
+            <div class="info-artist">
+                <span class="name-artist">
+                    {{ artists[selectedId].name }}
+                </span>
+                <div class="buttons-artist-outer">
+                    <div class="buttons-artist-inner">
+                        <button v-on:click="previous" class="pure-button">&lt;</button>
+                        <button v-on:click="$emit(\'remove\')" class="pure-button">X</button>
+                        <button v-on:click="next" class="pure-button">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     `,
     props: ['artists'],

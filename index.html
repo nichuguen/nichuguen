@@ -39,28 +39,30 @@
                     <h2>
                         Welcome {{user}}!
                     </h2>
-                    <div>
-                        <input type="text" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
-                        <button v-on:click="createPlaylist" class="pure-button">Create Playlist</button>
-                    </div>
-                    <!-- add one artist -->
-                    <div>
-                        <input type="text" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
-                        <button v-on:click="addArtist" class="pure-button">Add artist</button>
-                        <button v-on:click="removeArtists" class="pure-button">Remove all artists</button>
+                    <form class="pure-form pure-g">
+                        <div class="pure-u-1">
+                        <input type="text" class="pure-input-1" v-model="playlistName" @keyup.enter="createPlaylist" placeholder="Playlist Name"/>
+                        </div>
+                        <div class="pure-u-1">
+                        <input type="text" class="pure-input-1" v-model="currentArtist" @keyup.enter="addArtist" placeholder="Artist Name"/>
+                        </div>
+                        <div class="pure-u-1">
+                        <button class="pure-u-1 pure-u-sm-8-24 pure-button" v-on:click="addArtist" >Add Artist</button>
+                        <button class="pure-u-1 pure-u-sm-8-24 pure-button" v-on:click="createPlaylist">Create Playlist</button>
+                        <button class="pure-u-1 pure-u-sm-7-24 pure-button" v-on:click="removeArtists" >Clear Artists</button>
+                    </form>
 
-                    </div>
-                    <div>
-
-                            <artist-search
-                                v-for="(as, is) in artistsSearch"
-                                v-bind:key="is"
-                                v-bind:artists="as.artists"
-                                v-on:remove="removeArtist(is)"
-                                v-on:next="next(is)"
-                                v-on:previous="previous(is)"
-                                >
-                            </artist-search>
+                    
+                    <div class="artists">
+                        <artist-search
+                            v-for="(as, is) in artistsSearch"
+                            v-bind:key="is"
+                            v-bind:artists="as.artists"
+                            v-on:remove="removeArtist(is)"
+                            v-on:next="next(is)"
+                            v-on:previous="previous(is)"
+                            >
+                        </artist-search>
                     </div>
                 </div>
             </div>
