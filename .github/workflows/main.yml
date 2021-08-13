@@ -24,12 +24,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.NICHUGUEN_GITHUB_TOKEN }}
-        with:
-          source-directory: '.'
-          destination-github-username: 'nichuguen'
-          destination-repository-name: 'nichuguen'
-          user-name: 'ymaktepi'
-          target-branch: master
+        run: |
+        git remote add cloned https://ymaktepi:${NICHUGUEN_GITHUB_TOKEN}@github.com/nichuguen/nichuguen.git
+        git push cloned --force
