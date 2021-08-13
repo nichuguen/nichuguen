@@ -24,10 +24,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
          persist-credentials: false 
+         fetch-depth: 0
 
       - name: Pushes to another repository
         env:
           TOKEN: ${{ secrets.NICHUGUEN_GITHUB_TOKEN }}
         run: |
           git remote add cloned "https://ymaktepi:${TOKEN}@github.com/nichuguen/nichuguen.git"
-          git push cloned --force
+          git push cloned --force-with-lease
