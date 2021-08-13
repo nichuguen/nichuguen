@@ -31,4 +31,6 @@ jobs:
           source-directory: '.'
           destination-github-username: 'nichuguen'
           destination-repository-name: 'nichuguen'
+          destination-repository-username: 'nichuguen'
+          
           target-branch: master
