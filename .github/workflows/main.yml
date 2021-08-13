@@ -30,5 +30,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.NICHUGUEN_GITHUB_TOKEN }}
         run: |
-          git remote add cloned "https://ymaktepi:${TOKEN}@github.com/nichuguen/nichuguen.git"
-          git push cloned --force
+          if [ -n "$TOKEN" ] ; then
+            git remote add cloned "https://ymaktepi:${TOKEN}@github.com/nichuguen/nichuguen.git"
+            git push cloned --force
+          else
+            echo "Skipped, we're not in ymaktepi/spotify-playlist-generator"
+          fi
