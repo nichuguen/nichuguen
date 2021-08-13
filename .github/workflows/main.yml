@@ -29,6 +29,6 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.NICHUGUEN_GITHUB_TOKEN }}
         with:
           source-directory: '.'
-          destination-github-username: 'Courgettes Bot'
-          destination-repository-name: 'nichuguen/nichuguen'
+          destination-github-username: 'nichuguen'
+          destination-repository-name: 'nichuguen'
           target-branch: master
